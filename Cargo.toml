@@ -1,0 +1,13 @@
+[package]
+name = "logan"
+version = "1.0.0"
+edition = "2021"
+description = "Fast web access-log analyzer: top paths, status codes, IPs, traffic by hour. Zero dependencies."
+license = "MIT"
+repository = "https://github.com/Lekopien/rust-log-analyzer"
+
+[dependencies]
+
+[profile.release]
+lto = true
+codegen-units = 1

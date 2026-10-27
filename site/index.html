@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>logan, a Rust log analyzer · Lekopien</title>
+  <meta name="description" content="A zero-dependency Rust CLI that streams nginx and Apache logs and reports top routes, status codes, IPs, 404 hot spots, bot traffic and requests per hour, as a terminal dashboard or JSON.">
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="https://lekopien.com">lekopien<span>.</span>logs</a>
+  <nav><a href="#features">Features</a><a href="#code">Code</a><a href="https://github.com/Lekopien/rust-log-analyzer">GitHub</a></nav>
+</div></header>
+<main class="wrap">
+  <div class="hero">
+    <span class="tag">Systems · Rust</span>
+    <h1>Turn access logs into answers</h1>
+    <p class="lead">A zero-dependency Rust CLI that streams nginx and Apache logs and reports top routes, status codes, IPs, 404 hot spots, bot traffic and requests per hour, as a terminal dashboard or JSON.</p>
+    <div class="btns"><a class="btn" href="https://github.com/Lekopien/rust-log-analyzer">View source</a><a class="btn ghost" href="#code">Run it locally</a></div>
+  </div>
+  <section id="features"><h2>Highlights</h2><div class="grid"><div class="card"><h3>Zero-copy parsing</h3><p>Entries borrow slices of each line, so parsing allocates nothing.</p></div><div class="card"><h3>Constant memory</h3><p>Streams any BufRead line by line; pipe in gigabytes from zcat.</p></div><div class="card"><h3>Useful signals</h3><p>5xx rate, bot share, and the 404s scanners and broken links hit most.</p></div><div class="card"><h3>Script friendly</h3><p>--json output with proper string escaping, --status filter, multiple files.</p></div><div class="card"><h3>Robust</h3><p>Malformed lines are skipped and counted, never a panic.</p></div><div class="card"><h3>Strict CI</h3><p>rustfmt, clippy -D warnings, unit and end-to-end tests.</p></div></div></section>
+  
+  <section id="code"><h2>Run it</h2><h3>Run</h3><pre><code>git clone https://github.com/Lekopien/rust-log-analyzer
+cd rust-log-analyzer
+cargo run --release -- samples/access.log</code></pre><h3>Sample output</h3><pre><code>$ logan samples/access.log -n 4
+Requests        2000   skipped lines 1
+Traffic      49.6 MB   unique IPs 40
+5xx rate       3.45%   bot requests 820
+
+Top routes
+  /                                     600  ████████████████████
+  /pricing                              253  ████████
+  /services                             204  ███████
+  /assets/app.js                        191  ██████
+
+Status codes
+  200                                  1669  ████████████████████
+  404                                   144  ██
+  304                                   118  █
+  502                                    38  
+
+Top IPs
+  198.51.100.7                          681  ████████████████████
+  203.0.113.33                           50  █
+  203.0.113.8                            45  █
+  203.0.113.15                           42  █</code></pre><h3>Pipe it</h3><pre><code>zcat access.log.*.gz | logan --status 404 -n 20
+logan access.log --json | jq &#x27;.topRoutes[0]&#x27;</code></pre></section>
+  <section><h2>Stack</h2><div class="chips"><span class="chip">Rust 2021</span><span class="chip">std only</span><span class="chip">Iterators &amp; lifetimes</span><span class="chip">cargo test</span><span class="chip">clippy</span><span class="chip">GitHub Actions</span></div></section>
+</main>
+<footer><div class="wrap">Built by <a href="https://lekopien.com">Lekopien</a>. Part of the Lekopien project portfolio. <a href="https://github.com/Lekopien/rust-log-analyzer">Source on GitHub</a>.</div></footer>
+
+</body>
+</html>
