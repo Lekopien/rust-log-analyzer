@@ -79,3 +79,7 @@ Malformed lines are skipped and counted rather than crashing the run. CI enforce
 ## License
 
 MIT
+
+## Author
+
+Built by **David Lekopien** ([@Lekopien](https://github.com/Lekopien)) · [lekopien.com](https://lekopien.com)
